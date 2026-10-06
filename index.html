@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INVITEPRO | Platform RSVP & Jemputan Digital Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS dimasukkan terus di dalam tag style bawah ni -->
+  <style>
+    :root {
+      --bg-dark: #0a0a0c;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --border-card: rgba(255, 255, 255, 0.08);
+      --primary-red: #e60023;
+      --primary-red-hover: #ff1a3c;
+      --accent-blue: #0070f3;
+      --text-white: #ffffff;
+      --text-muted: #a1a1aa;
+      --font-main: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: var(--font-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Glowing Effect */
+    .glow-effect {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.35;
+    }
+
+    .glow-red {
+      background: var(--primary-red);
+      top: -100px;
+      left: -100px;
+    }
+
+    .glow-blue {
+      background: var(--accent-blue);
+      top: 300px;
+      right: -100px;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: rgba(10, 10, 12, 0.8);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-card);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .logo .highlight {
+      color: var(--primary-red);
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 1.2rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-white);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background-color: var(--primary-red);
+      color: var(--text-white);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(230, 0, 35, 0.4);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-red-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(230, 0, 35, 0.6);
+    }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--text-white);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid var(--border-card);
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-large {
+      padding: 1rem 2rem;
+      font-size: 1.05rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 6rem 5% 4rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-card);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-blue);
+      border-radius: 50%;
+      margin-right: 8px;
+      box-shadow: 0 0 8px var(--accent-blue);
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #ffffff 30%, var(--primary-red) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 4rem;
+    }
+
+    /* Features Grid */
+    .features-pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .pill {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      color: var(--text-white);
+      backdrop-filter: blur(10px);
+    }
+
+    .pill span {
+      color: var(--primary-red);
+      font-weight: bold;
+      margin-right: 6px;
+    }
+
+    /* Templates Section */
+    .templates-section {
+      padding: 5rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+    }
+
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .template-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .template-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(230, 0, 35, 0.4);
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .tag-red {
+      background: rgba(230, 0, 35, 0.2);
+      color: var(--primary-red);
+      border: 1px solid var(--primary-red);
+    }
+
+    .tag-blue {
+      background: rgba(0, 112, 243, 0.2);
+      color: var(--accent-blue);
+      border: 1px solid var(--accent-blue);
+    }
+
+    .template-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .template-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-link {
+      color: var(--text-white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .card-link:hover {
+      color: var(--primary-red);
+    }
+
+    /* CTA Section */
+    .cta-banner {
+      margin: 4rem 5%;
+      background: linear-gradient(135deg, rgba(230,0,35,0.15) 0%, rgba(0,112,243,0.15) 100%);
+      border: 1px solid var(--border-card);
+      border-radius: 24px;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .cta-banner h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-banner p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border-card);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.3rem; }
+      .hero-cta { flex-direction: column; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-effect glow-red"></div>
+  <div class="glow-effect glow-blue"></div>
+
+  <header class="navbar">
+    <div class="logo">
+      <span>RSVP</span><span class="highlight">MY</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#features">Ciri Utama</a>
+      <a href="#templates">Koleksi Template</a>
+      <a href="#pricing">Pakej</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#" class="btn-secondary">Log Masuk</a>
+      <a href="#" class="btn-primary">Mula Percuma</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="badge">
+      <span class="badge-dot"></span> Platform Jemputan Digital #1
+    </div>
+    <h1>Cipta Kad Digital & RSVP <br><span class="text-shiny">Lebih Elegan, Bold & Eksklusif</span></h1>
+    <p class="hero-subtitle">
+      Bukan sekadar kad kahwin. Lengkap dengan template jemputan acara korporat, hari jadi, majlis reunion, dan sistem pengurusan tetamu automatik.
+    </p>
+    <div class="hero-cta">
+      <a href="#" class="btn-primary btn-large">Bina Kad Pertama Anda</a>
+    </div>
+
+    <div class="features-pill-grid">
+      <div class="pill"><span>✓</span> RSVP Automatik</div>
+      <div class="pill"><span>✓</span> Lokasi & Waze</div>
+      <div class="pill"><span>✓</span> Integrasi Kalendar</div>
+      <div class="pill"><span>✓</span> Lagu Latar Custom</div>
+      <div class="pill"><span>✓</span> Salam & Ucapan</div>
+      <div class="pill"><span>✓</span> Hadiah / Money Gift</div>
+      <div class="pill"><span>✓</span> Galeri HD</div>
+      <div class="pill"><span>✓</span> Eksport PDF / QR Code</div>
+    </div>
+  </section>
+
+  <section id="templates" class="templates-section">
+    <div class="section-title">
+      <h2>Pilih Template Mengikut Majlis</h2>
+      <p>Pelbagai pilihan reka bentuk premium yang boleh disesuaikan bila-bila masa.</p>
+    </div>
+
+    <div class="template-grid">
+      <div class="template-card">
+        <div class="card-tag tag-red">Popular</div>
+        <h3>Wedding & Walimatulurus</h3>
+        <p>Gaya mewah, elegan, dan klasik untuk hari bahagia anda.</p>
+        <a href="#" class="card-link">Terokai Design →</a>
+      </div>
+
+      <div class="template-card">
+        <div class="card-tag tag-blue">Exclusive</div>
+        <h3>Acara Korporat & Pelancaran</h3>
+        <p>Reka bentuk profesional, bersih, dan tampak rasmi.</p>
+        <a href="#" class="card-link">Terokai Design →</a>
+      </div>
+
+      <div class="template-card">
+        <h3>Hari Jadi & Celebration</h3>
+        <p>Gaya moden, ceria, dan sesuai untuk pelbagai peringkat umur.</p>
+        <a href="#" class="card-link">Terokai Design →</a>
+      </div>
+
+      <div class="template-card">
+        <h3>Reunion & Majlis Khas</h3>
+        <p>Sistem RSVP pantas untuk menguruskan kehadiran rakan-rakan.</p>
+        <a href="#" class="card-link">Terokai Design →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <h2>Sedia Cipta Jemputan Digital Mengagumkan?</h2>
+    <p>Pilih template, kemaskini maklumat majlis, dan kongsi pautan anda dalam masa 5 minit.</p>
+    <a href="#" class="btn-primary btn-large">Mula Sekarang — Percuma</a>
+  </section>
+
+  <footer>
+    <p>© 2026 INVITEPRO. Hak Cipta Terpelihara.</p>
+  </footer>
+
+</body>
+</html>
