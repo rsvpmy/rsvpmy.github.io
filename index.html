@@ -1,438 +1,533 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>INVITEPRO | Platform RSVP & Jemputan Digital Premium</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- CSS dimasukkan terus di dalam tag style bawah ni -->
-  <style>
-    :root {
-      --bg-dark: #0a0a0c;
-      --bg-card: rgba(255, 255, 255, 0.03);
-      --border-card: rgba(255, 255, 255, 0.08);
-      --primary-red: #e60023;
-      --primary-red-hover: #ff1a3c;
-      --accent-blue: #0070f3;
-      --text-white: #ffffff;
-      --text-muted: #a1a1aa;
-      --font-main: 'Plus Jakarta Sans', sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVPMY - Platform Jemputan Digital #1</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            background-color: #0d0d0d;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-white);
-      font-family: var(--font-main);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
+        /* LIGHT GLOW BACKGROUNDS (MERAH & BIRU FADE) */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -150px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(229, 9, 20, 0.28) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(80px);
+        }
 
-    /* Glowing Effect */
-    .glow-effect {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      filter: blur(140px);
-      z-index: -1;
-      opacity: 0.35;
-    }
+        body::after {
+            content: '';
+            position: absolute;
+            top: 100px;
+            right: -150px;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, rgba(0, 85, 255, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+            filter: blur(90px);
+        }
 
-    .glow-red {
-      background: var(--primary-red);
-      top: -100px;
-      left: -100px;
-    }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-    .glow-blue {
-      background: var(--accent-blue);
-      top: 300px;
-      right: -100px;
-    }
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: rgba(13, 13, 13, 0.7);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-    /* Navbar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 5%;
-      background: rgba(10, 10, 12, 0.8);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid var(--border-card);
-    }
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
+        .logo span {
+            color: #e50914;
+        }
 
-    .logo .highlight {
-      color: var(--primary-red);
-    }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
 
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      margin: 0 1.2rem;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: #cccccc;
+            transition: color 0.3s;
+        }
 
-    .nav-links a:hover {
-      color: var(--text-white);
-    }
+        .nav-links a:hover {
+            color: #ffffff;
+        }
 
-    /* Buttons */
-    .btn-primary {
-      background-color: var(--primary-red);
-      color: var(--text-white);
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-block;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(230, 0, 35, 0.4);
-    }
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
 
-    .btn-primary:hover {
-      background-color: var(--primary-red-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(230, 0, 35, 0.6);
-    }
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 9px 18px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    .btn-secondary {
-      background-color: rgba(255, 255, 255, 0.05);
-      color: var(--text-white);
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      border: 1px solid var(--border-card);
-      display: inline-block;
-      transition: all 0.3s ease;
-    }
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
 
-    .btn-secondary:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
+        .btn-primary {
+            background-color: #e50914;
+            color: #ffffff;
+            border: none;
+            padding: 9px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+            transition: all 0.3s ease;
+        }
 
-    .btn-large {
-      padding: 1rem 2rem;
-      font-size: 1.05rem;
-    }
+        .btn-primary:hover {
+            background-color: #f40612;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 9, 20, 0.6);
+        }
 
-    /* Hero Section */
-    .hero {
-      text-align: center;
-      padding: 6rem 5% 4rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
+        /* HERO SECTION */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-card);
-      padding: 0.4rem 1rem;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: rgba(0, 119, 255, 0.15);
+            color: #3898ff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border: 1px solid rgba(56, 152, 255, 0.3);
+        }
 
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      background-color: var(--accent-blue);
-      border-radius: 50%;
-      margin-right: 8px;
-      box-shadow: 0 0 8px var(--accent-blue);
-    }
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
 
-    .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 1.5rem;
-    }
+        .hero p {
+            font-size: 16px;
+            color: #a0a0a0;
+            margin-bottom: 35px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    .text-gradient {
-      background: linear-gradient(135deg, #ffffff 30%, var(--primary-red) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        .hero-cta {
+            font-size: 16px;
+            padding: 14px 32px;
+            border-radius: 8px;
+            margin-bottom: 50px;
+        }
 
-    .hero-subtitle {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+        /* FEATURES PILLS */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
 
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      margin-bottom: 4rem;
-    }
+        .feature-pill {
+            background-color: rgba(24, 24, 24, 0.8);
+            border: 1px solid #282828;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #d1d1d1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            backdrop-filter: blur(8px);
+        }
 
-    /* Features Grid */
-    .features-pill-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.8rem;
-      max-width: 850px;
-      margin: 0 auto;
-    }
+        .feature-pill span {
+            color: #e50914;
+            font-weight: bold;
+        }
 
-    .pill {
-      background: var(--bg-card);
-      border: 1px solid var(--border-card);
-      padding: 0.6rem 1.2rem;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      color: var(--text-white);
-      backdrop-filter: blur(10px);
-    }
+        /* TEMPLATE CATEGORIES (NETFLIX STYLE) */
+        .section-categories {
+            padding: 80px 8%;
+            border-top: 1px solid #1a1a1a;
+            position: relative;
+            z-index: 1;
+        }
 
-    .pill span {
-      color: var(--primary-red);
-      font-weight: bold;
-      margin-right: 6px;
-    }
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
-    /* Templates Section */
-    .templates-section {
-      padding: 5rem 5%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+        .section-header h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 3.5rem;
-    }
+        .section-header p {
+            color: #888888;
+            font-size: 15px;
+        }
 
-    .section-title h2 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
 
-    .section-title p {
-      color: var(--text-muted);
-    }
+        .card {
+            background-color: #141414;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #222222;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .template-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #333333;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+        }
 
-    .template-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-card);
-      border-radius: 16px;
-      padding: 2rem;
-      position: relative;
-      backdrop-filter: blur(10px);
-      transition: transform 0.3s, border-color 0.3s;
-    }
+        .card-img-container {
+            width: 100%;
+            height: 180px;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .template-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(230, 0, 35, 0.4);
-    }
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
 
-    .card-tag {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 0.75rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 4px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
+        .card:hover .card-img-container img {
+            transform: scale(1.05);
+        }
 
-    .tag-red {
-      background: rgba(230, 0, 35, 0.2);
-      color: var(--primary-red);
-      border: 1px solid var(--primary-red);
-    }
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
 
-    .tag-blue {
-      background: rgba(0, 112, 243, 0.2);
-      color: var(--accent-blue);
-      border: 1px solid var(--accent-blue);
-    }
+        .badge-popular {
+            background-color: #e50914;
+            color: #ffffff;
+        }
 
-    .template-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 0.8rem;
-    }
+        .badge-exclusive {
+            background-color: #0077ff;
+            color: #ffffff;
+        }
 
-    .template-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1.5rem;
-    }
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-    .card-link {
-      color: var(--text-white);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: color 0.3s;
-    }
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
 
-    .card-link:hover {
-      color: var(--primary-red);
-    }
+        .card-text {
+            font-size: 13px;
+            color: #999999;
+            margin-bottom: 20px;
+        }
 
-    /* CTA Section */
-    .cta-banner {
-      margin: 4rem 5%;
-      background: linear-gradient(135deg, rgba(230,0,35,0.15) 0%, rgba(0,112,243,0.15) 100%);
-      border: 1px solid var(--border-card);
-      border-radius: 24px;
-      padding: 4rem 2rem;
-      text-align: center;
-    }
+        .card-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
 
-    .cta-banner h2 {
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
-    }
+        .card-link:hover {
+            color: #e50914;
+        }
 
-    .cta-banner p {
-      color: var(--text-muted);
-      margin-bottom: 2rem;
-    }
+        /* FOOTER */
+        .footer {
+            padding: 60px 8% 30px;
+            background-color: #080808;
+            border-top: 1px solid #1a1a1a;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
 
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--border-card);
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
+        .footer-brand p {
+            color: #666666;
+            font-size: 13px;
+            margin-top: 12px;
+            max-width: 300px;
+        }
 
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2.3rem; }
-      .hero-cta { flex-direction: column; }
-      .nav-links { display: none; }
-    }
-  </style>
+        .footer-column h4 {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #777777;
+            font-size: 13px;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+        }
+
+        .copyright {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #141414;
+            color: #555555;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 32px; }
+            .footer { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="glow-effect glow-red"></div>
-  <div class="glow-effect glow-blue"></div>
-
-  <header class="navbar">
-    <div class="logo">
-      <span>RSVP</span><span class="highlight">MY</span>
-    </div>
-    <nav class="nav-links">
-      <a href="#features">Ciri Utama</a>
-      <a href="#templates">Koleksi Template</a>
-      <a href="#pricing">Pakej</a>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">RSVP<span>MY</span></div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#template">Koleksi Template</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <button class="btn-secondary" onclick="alert('Log Masuk dibuka')">Log Masuk</button>
+            <button class="btn-primary" onclick="alert('Mula Percuma')">Mula Percuma</button>
+        </div>
     </nav>
-    <div class="nav-actions">
-      <a href="#" class="btn-secondary">Log Masuk</a>
-      <a href="#" class="btn-primary">Mula Percuma</a>
-    </div>
-  </header>
 
-  <section class="hero">
-    <div class="badge">
-      <span class="badge-dot"></span> Platform Jemputan Digital #1
-    </div>
-    <h1>Cipta Kad Digital & RSVP <br><span class="text-shiny">Lebih Elegan, Bold & Eksklusif</span></h1>
-    <p class="hero-subtitle">
-      Bukan sekadar kad kahwin. Lengkap dengan template jemputan acara korporat, hari jadi, majlis reunion, dan sistem pengurusan tetamu automatik.
-    </p>
-    <div class="hero-cta">
-      <a href="#" class="btn-primary btn-large">Bina Kad Pertama Anda</a>
-    </div>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+            Platform Jemputan Digital #1
+        </div>
+        <h1>Cipta Kad Digital & RSVP Lebih Elegan, Bold & Eksklusif</h1>
+        <p>Bukan sekadar kad kahwin. Lengkap dengan template jemputan acara korporat, hari jadi, majlis reunion, dan sistem pengurusan tetamu automatik.</p>
+        <button class="btn-primary hero-cta" onclick="alert('Bina Kad Pertama Anda')">Bina Kad Pertama Anda</button>
 
-    <div class="features-pill-grid">
-      <div class="pill"><span>✓</span> RSVP Automatik</div>
-      <div class="pill"><span>✓</span> Lokasi & Waze</div>
-      <div class="pill"><span>✓</span> Integrasi Kalendar</div>
-      <div class="pill"><span>✓</span> Lagu Latar Custom</div>
-      <div class="pill"><span>✓</span> Salam & Ucapan</div>
-      <div class="pill"><span>✓</span> Hadiah / Money Gift</div>
-      <div class="pill"><span>✓</span> Galeri HD</div>
-      <div class="pill"><span>✓</span> Eksport PDF / QR Code</div>
-    </div>
-  </section>
+        <!-- FEATURES PILLS -->
+        <div class="features-grid">
+            <div class="feature-pill"><span>✓</span> RSVP Automatik</div>
+            <div class="feature-pill"><span>✓</span> Lokasi & Waze</div>
+            <div class="feature-pill"><span>✓</span> Integrasi Kalendar</div>
+            <div class="feature-pill"><span>✓</span> Lagu Latar Custom</div>
+            <div class="feature-pill"><span>✓</span> Salam & Ucapan</div>
+            <div class="feature-pill"><span>✓</span> Hadiah / Money Gift</div>
+            <div class="feature-pill"><span>✓</span> Galeri HD</div>
+            <div class="feature-pill"><span>✓</span> Eksport PDF / QR Code</div>
+        </div>
+    </section>
 
-  <section id="templates" class="templates-section">
-    <div class="section-title">
-      <h2>Pilih Template Mengikut Majlis</h2>
-      <p>Pelbagai pilihan reka bentuk premium yang boleh disesuaikan bila-bila masa.</p>
-    </div>
+    <!-- TEMPLATE CATEGORIES SECTION -->
+    <section class="section-categories" id="template">
+        <div class="section-header">
+            <h2>Pilih Template Mengikut Majlis</h2>
+            <p>Pelbagai pilihan reka bentuk premium yang boleh disesuaikan bila-bila masa.</p>
+        </div>
 
-    <div class="template-grid">
-      <div class="template-card">
-        <div class="card-tag tag-red">Popular</div>
-        <h3>Wedding & Walimatulurus</h3>
-        <p>Gaya mewah, elegan, dan klasik untuk hari bahagia anda.</p>
-        <a href="#" class="card-link">Terokai Design →</a>
-      </div>
+        <div class="templates-grid">
+            <!-- CARD 1 -->
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" alt="Wedding">
+                    <span class="card-badge badge-popular">POPULAR</span>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">Wedding & Walimatulurus</div>
+                        <div class="card-text">Gaya mewah, elegan, dan klasik untuk hari bahagia anda.</div>
+                    </div>
+                    <a href="#" class="card-link" onclick="alert('Terokai Design Wedding')">Terokai Design &rarr;</a>
+                </div>
+            </div>
 
-      <div class="template-card">
-        <div class="card-tag tag-blue">Exclusive</div>
-        <h3>Acara Korporat & Pelancaran</h3>
-        <p>Reka bentuk profesional, bersih, dan tampak rasmi.</p>
-        <a href="#" class="card-link">Terokai Design →</a>
-      </div>
+            <!-- CARD 2 -->
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=80" alt="Corporate">
+                    <span class="card-badge badge-exclusive">EXCLUSIVE</span>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">Acara Korporat & Pelancaran</div>
+                        <div class="card-text">Reka bentuk profesional, bersih, dan tampak rasmi.</div>
+                    </div>
+                    <a href="#" class="card-link" onclick="alert('Terokai Design Korporat')">Terokai Design &rarr;</a>
+                </div>
+            </div>
 
-      <div class="template-card">
-        <h3>Hari Jadi & Celebration</h3>
-        <p>Gaya moden, ceria, dan sesuai untuk pelbagai peringkat umur.</p>
-        <a href="#" class="card-link">Terokai Design →</a>
-      </div>
+            <!-- CARD 3 -->
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=80" alt="Birthday">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">Hari Jadi & Celebration</div>
+                        <div class="card-text">Gaya moden, ceria, dan sesuai untuk pelbagai peringkat umur.</div>
+                    </div>
+                    <a href="#" class="card-link" onclick="alert('Terokai Design Hari Jadi')">Terokai Design &rarr;</a>
+                </div>
+            </div>
 
-      <div class="template-card">
-        <h3>Reunion & Majlis Khas</h3>
-        <p>Sistem RSVP pantas untuk menguruskan kehadiran rakan-rakan.</p>
-        <a href="#" class="card-link">Terokai Design →</a>
-      </div>
-    </div>
-  </section>
+            <!-- CARD 4 -->
+            <div class="card">
+                <div class="card-img-container">
+                    <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=600&q=80" alt="Reunion">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="card-title">Reunion & Majlis Khas</div>
+                        <div class="card-text">Sistem RSVP pantas untuk menguruskan kehadiran rakan-rakan.</div>
+                    </div>
+                    <a href="#" class="card-link" onclick="alert('Terokai Design Reunion')">Terokai Design &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section class="cta-banner">
-    <h2>Sedia Cipta Jemputan Digital Mengagumkan?</h2>
-    <p>Pilih template, kemaskini maklumat majlis, dan kongsi pautan anda dalam masa 5 minit.</p>
-    <a href="#" class="btn-primary btn-large">Mula Sekarang — Percuma</a>
-  </section>
-
-  <footer>
-    <p>© 2026 INVITEPRO. Hak Cipta Terpelihara.</p>
-  </footer>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-brand">
+            <div class="logo">RSVP<span>MY</span></div>
+            <p>RSVPMY bukan sekadar kad. Lengkap dengan template jemputan korporat, hari jadi, majlis reunion, dan sistem pengurusan tetamu automatik.</p>
+        </div>
+        <div class="footer-column">
+            <h4>Brand Info</h4>
+            <ul>
+                <li><a href="#">Latar Belakang</a></li>
+                <li><a href="#">Templat Kad</a></li>
+                <li><a href="#">Rakan Kongsi</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#">Bantuan</a></li>
+                <li><a href="#">Koleksi Template</a></li>
+                <li><a href="#">Pakej & Harga</a></li>
+                <li><a href="#">Semakan Kad</a></li>
+            </ul>
+        </div>
+        <div class="copyright">
+            &copy; 2026 RSVPMY. Hak Cipta Terpelihara.
+        </div>
+    </footer>
 
 </body>
 </html>
